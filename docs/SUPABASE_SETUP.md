@@ -42,7 +42,16 @@ create table intake_submissions (
 alter table intake_submissions enable row level security;
 ```
 
-## 5. Add anon insert policy
+## 5. Grant insert privilege to anon role
+
+RLS policies and table-level grants are separate layers. The `anon` role needs an explicit
+privilege grant before RLS is even evaluated.
+
+```sql
+grant insert on table intake_submissions to anon;
+```
+
+## 6. Add anon insert policy
 
 Allow anyone (unauthenticated) to submit an intake. No read access is granted.
 
@@ -56,7 +65,7 @@ create policy "Allow anon intake submissions"
 
 **Important:** Do not add a public SELECT policy. Submissions are write-only from the public side.
 
-## 6. Verify setup
+## 7. Verify setup
 
 After running the SQL, confirm:
 - The `intake_submissions` table exists with all columns.
@@ -64,7 +73,7 @@ After running the SQL, confirm:
 - The insert policy is active.
 - No SELECT policy exists for anon users.
 
-## 7. Notes on key usage
+## 8. Notes on key usage
 
 - The app uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (the anon key) only.
 - Never use the `service_role` key in this app. It bypasses RLS and exposes all data.
