@@ -58,3 +58,23 @@ export type DashboardCardData = {
   status: string;
   metric: string;
 };
+
+// Sprint 2: Intake persistence types
+
+export type IntakeSubmissionInput = {
+  name: string;
+  email: string;
+  business_idea: string;
+  current_stage?: string;
+  biggest_problem?: string;
+  target_customer?: string;
+  desired_outcome?: string;
+  budget_timeline?: string;
+  notes?: string;
+};
+
+export type IntakeSubmission = IntakeSubmissionInput & {
+  id: string;
+  created_at: string;
+  status: string;
+};
