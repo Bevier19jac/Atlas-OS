@@ -73,8 +73,23 @@ After running the SQL, confirm:
 - The insert policy is active.
 - No SELECT policy exists for anon users.
 
-## 8. Notes on key usage
+## 8. Grant privileges to service_role (Sprint 3 — Admin review)
 
-- The app uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (the anon key) only.
-- Never use the `service_role` key in this app. It bypasses RLS and exposes all data.
-- The anon key combined with RLS is the correct pattern for public intake submissions.
+The `service_role` key bypasses RLS *policies* but still requires table-level PostgreSQL
+grants. Run the following in the **Supabase SQL Editor**:
+
+```sql
+grant select, update on table public.intake_submissions to service_role;
+```
+
+This allows the server-side admin client (used at `/admin/submissions`) to read and
+update intake records. Without this, Supabase returns `42501 permission denied`.
+
+## 9. Notes on key usage
+
+- The **publishable key** (`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`) is used only for the
+  public intake form. It is safe to expose in the browser when RLS is enabled.
+- The **service_role key** (`SUPABASE_SECRET_KEY`) is used only server-side in
+  `lib/supabase/admin.ts`. It bypasses RLS and must never be sent to the browser.
+  Use the **Legacy → service_role** key (the long `eyJ...` JWT) — not the new `sb_secret_*`
+  format, which does not correctly bypass RLS with `supabase-js` 2.x.

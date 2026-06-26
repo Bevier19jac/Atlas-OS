@@ -73,8 +73,10 @@ export type IntakeSubmissionInput = {
   notes?: string;
 };
 
+export type AdminIntakeStatus = "new" | "reviewing" | "accepted" | "archived";
+
 export type IntakeSubmission = IntakeSubmissionInput & {
   id: string;
   created_at: string;
-  status: string;
+  status: AdminIntakeStatus | string;
 };

@@ -12,9 +12,13 @@ Clean Next.js scaffold with landing, intake, dashboard, and blueprint routes. Mo
 
 Real intake submission workflow. Founder submits /intake, data is stored in Supabase, app returns a confirmation. No auth, no payments, no AI.
 
-### Sprint 3 — Intake Review (planned)
+### Sprint 3 — Internal Intake Review ✅
 
-A simple internal view for reviewing submitted intakes and preparing for the manual strategy sprint. Keep it lightweight — no full admin dashboard.
+Simple passcode-protected internal page at /admin/submissions. Jacob can view submitted intakes and update status (new → reviewing → accepted → archived) to prepare for the first manual sprint delivery.
+
+### Sprint 4 — Hardened Access or First Paid Workflow Decision (planned)
+
+Either: replace the passcode guard with proper auth (Supabase Auth, NextAuth, or similar) for multi-user internal access. Or: build the first paid workflow step (e.g. blueprint delivery, client-facing status view). Decision should follow the first real customer sprint delivery.
 
 ## Phase 2: Client Dashboard
 
