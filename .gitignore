@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Environment
+.env
+.env*.local
+
+# Python artifacts from prior workspace usage
+.venv/
+__pycache__/
+*.py[cod]
+
+# Local build/cache artifacts
+*.tsbuildinfo
+*.log
