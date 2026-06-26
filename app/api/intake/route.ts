@@ -75,11 +75,9 @@ export async function POST(request: NextRequest) {
 
   const supabase = getSupabaseClient();
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("intake_submissions")
-    .insert(submission)
-    .select("id")
-    .single();
+    .insert(submission);
 
   if (error) {
     console.error("[intake] Supabase insert error:", error.code, error.message);
@@ -89,7 +87,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  return NextResponse.json({ success: true, id: data.id }, { status: 201 });
+  return NextResponse.json({ success: true }, { status: 201 });
 }
 
 export function GET() {
